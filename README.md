@@ -9,7 +9,8 @@ To create a chance for arranging a vaccination slot, use simple automatic python
 - Parallel/Concurrent request processing with for Slot Booking.
 
 # Requirements
-- Python 3.x
+- Python 3.7
+- pre-commit
 
 # How to run 
 `python vaccine_booking.py`
