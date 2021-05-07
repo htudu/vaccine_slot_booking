@@ -1,6 +1,6 @@
 import requests
 
-
+x,y = 10,100
 class InfomationCenter(object):
     '''
     1) checking all centers for availability of slots
