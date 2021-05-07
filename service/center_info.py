@@ -1,7 +1,7 @@
 import requests
 
 
-class InfomationCenter(object):
+class InfomationCenter:
     """
     1) checking all centers for availability of slots
     2) checking for free or paid centers
@@ -66,6 +66,7 @@ class InfomationCenter(object):
 
         return {"message": message, "code": code, "data": center_information}
 
+    @staticmethod
     def free_or_paid_center(self, center, free_center, paid_center):
         if center["fee_type"] == "Free":
             free_center.append(center)
@@ -73,6 +74,7 @@ class InfomationCenter(object):
             paid_center.append(center)
         return free_center, paid_center
 
+    @staticmethod
     def look_for_centers_with_slots(self, center, availability_slots, list_of_centers):
         """
         method to return list_of_centers -> [list], availability_slots -> (int)
@@ -86,6 +88,7 @@ class InfomationCenter(object):
                 availability_slots += 1
         return list_of_centers, availability_slots
 
+    @staticmethod
     def extract_center(self, session, center, list_of_centers, n):
         lab = {}
         vacant = False
