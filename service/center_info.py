@@ -1,8 +1,8 @@
 import requests
 
-x,y = 10,100
+
 class InfomationCenter(object):
-    '''
+    """
     1) checking all centers for availability of slots
     2) checking for free or paid centers
     3) checking age limit
@@ -17,7 +17,7 @@ class InfomationCenter(object):
         h) center_name - Name of the center
 
     returning >>> dictionary with relevant informations
-    '''
+    """
 
     def __init__(self, url):
         self.booking_url = url
@@ -28,7 +28,8 @@ class InfomationCenter(object):
             message = "success"
             code = 200
             headers = {
-                "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"}
+                "user-agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/89.0.4389.114 Safari/537.36"
+            }
             vaccine_app = requests.get(self.booking_url, headers=headers)
 
             availability_slots = 0
@@ -40,11 +41,16 @@ class InfomationCenter(object):
                 list_of_centers = []
                 for center in results["centers"]:
                     free_center, paid_center = self.free_or_paid_center(
-                        center, free_center, paid_center)
-                    list_of_centers, availability_slots = self.look_for_centers_with_slots(
-                        center, availability_slots, list_of_centers)
+                        center, free_center, paid_center
+                    )
+                    (
+                        list_of_centers,
+                        availability_slots,
+                    ) = self.look_for_centers_with_slots(
+                        center, availability_slots, list_of_centers
+                    )
 
-                center_information["total_slots"] = len(results['centers'])
+                center_information["total_slots"] = len(results["centers"])
                 center_information["free_slots"] = len(free_center)
                 center_information["paid_slots"] = len(paid_center)
                 center_information["available"] = availability_slots
@@ -55,26 +61,26 @@ class InfomationCenter(object):
             message = f"Exception due to - {data_error}"
             code = 500
             import traceback
+
             print(traceback.print_exc())
 
-        return {"message": message,
-                "code": code,
-                "data": center_information}
+        return {"message": message, "code": code, "data": center_information}
 
     def free_or_paid_center(self, center, free_center, paid_center):
-        if center['fee_type'] == "Free":
+        if center["fee_type"] == "Free":
             free_center.append(center)
         else:
             paid_center.append(center)
         return free_center, paid_center
 
     def look_for_centers_with_slots(self, center, availability_slots, list_of_centers):
-        '''
+        """
         method to return list_of_centers -> [list], availability_slots -> (int)
-        '''
-        for n, session in enumerate(center['sessions']):
+        """
+        for n, session in enumerate(center["sessions"]):
             list_of_centers, vacant_status = self.extract_center(
-                session, center, list_of_centers, n)
+                session, center, list_of_centers, n
+            )
             # --- increment the slot value ---
             if vacant_status:
                 availability_slots += 1
@@ -83,7 +89,7 @@ class InfomationCenter(object):
     def extract_center(self, session, center, list_of_centers, n):
         lab = {}
         vacant = False
-        if int(session['available_capacity']) > 0:
+        if int(session["available_capacity"]) > 0:
             # --- center information dictionary ---
             lab["center_name"] = center["name"]
             lab["center_type"] = center["fee_type"]
