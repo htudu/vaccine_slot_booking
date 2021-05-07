@@ -1,6 +1,5 @@
-import requests
 import datetime
-
+import pprint
 from service.center_info import InfomationCenter
 
 # API details
@@ -15,8 +14,6 @@ today = today_date.strftime("%d-%m-%Y")
 today = "09-05-2021"
 
 booking_url = f"{host}/{endpoint}?district_id={district}&date={today}"
-print(booking_url)
-import pprint
 
 app = InfomationCenter(booking_url)
 pprint.pprint(app.fetch_available_slots())
@@ -40,7 +37,7 @@ pprint.pprint(app.fetch_available_slots())
 #                 print(f"{center['name']} - {center['fee_type']}")
 #                 print(f"Date - {session['date']} | available capacity - {session['available_capacity']}")
 #                 print(f"Vaccine - {session['vaccine']} | Age limi - +{session['min_age_limit']}")
-    
+
 #     print(f"total = {len(result['centers'])}")
 #     print(f"free = {len(free_center)}")
 #     print(f"Paid = {len(paid_center)}")
