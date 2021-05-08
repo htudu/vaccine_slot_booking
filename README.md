@@ -1,5 +1,5 @@
 # vaccine_slot_booking
-Vaccination Slots are getting instantly Booked.
+Vaccination/Vaccine Slots are getting instantly Booked.
 To create a chance for arranging a vaccination slot, use simple automatic python script to make bookings as soon you find a slot available.
 
 # Features
