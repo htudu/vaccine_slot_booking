@@ -50,13 +50,13 @@ class InfomationCenter:
                         center, availability_slots, list_of_centers
                     )
 
-                center_information["total_slots"] = len(results["centers"])
-                center_information["free_slots"] = len(free_center)
-                center_information["paid_slots"] = len(paid_center)
+                center_information["total_centers"] = len(results["centers"])
+                center_information["free_centers"] = len(free_center)
+                center_information["paid_centers"] = len(paid_center)
                 center_information["available"] = availability_slots
-                center_information["center_info"] = list_of_centers
+                # center_information["center_info"] = list_of_centers
             else:
-                print("Response failed")
+                print(vaccine_app.text)
         except Exception as data_error:
             message = f"Exception due to - {data_error}"
             code = 500
@@ -66,7 +66,6 @@ class InfomationCenter:
 
         return {"message": message, "code": code, "data": center_information}
 
-    @staticmethod
     def free_or_paid_center(self, center, free_center, paid_center):
         if center["fee_type"] == "Free":
             free_center.append(center)
@@ -74,7 +73,6 @@ class InfomationCenter:
             paid_center.append(center)
         return free_center, paid_center
 
-    @staticmethod
     def look_for_centers_with_slots(self, center, availability_slots, list_of_centers):
         """
         method to return list_of_centers -> [list], availability_slots -> (int)
@@ -88,7 +86,6 @@ class InfomationCenter:
                 availability_slots += 1
         return list_of_centers, availability_slots
 
-    @staticmethod
     def extract_center(self, session, center, list_of_centers, n):
         lab = {}
         vacant = False
